@@ -8,7 +8,13 @@ module.exports = {
     path: path.resolve(__dirname, 'build'),
   },
   devServer: {
-    publicPath: '/build/',
+    proxy: {
+      "/login": "http://localhost:3000",
+    },
+    publicPath: 'http://localhost:8080/build/',
+  },
+  resolve: {
+    extensions: ['.js', '.jsx'],
   },
   module: {
     rules: [
