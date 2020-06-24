@@ -1,6 +1,6 @@
 import React from 'react';
 
-function List({ destination, submit }) {
+function List({ destination, submit, verify }) {
   if (submit) {
     return (
       <div>
@@ -9,7 +9,7 @@ function List({ destination, submit }) {
     );
   }
   return (
-      <div></div>
+    <div />
   );
 }
 
