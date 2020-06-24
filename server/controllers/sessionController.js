@@ -1,4 +1,4 @@
-const Session = require("../models/sessionModel");
+const Session = require('../models/sessionModel');
 
 const sessionController = {};
 
@@ -8,13 +8,14 @@ const sessionController = {};
  */
 sessionController.isLoggedIn = (req, res, next) => {
   Session.findOne({ cookieId: req.cookies.ssid }, (err, result) => {
-    console.log("inside isLoggedin: ", req.cookies.ssid);
-    console.log("result: ", result.cookieId);
-    if (err) res.render("./../client/signup", { error: null });
-    else if (!result) {
+    console.log('inside isLoggedin: ', req.cookies.ssid);
+    console.log('result: ', result.cookieId);
+    if (err) return next({ error: null });
+    if (!result) {
       console.log('isloggedin result is null');
-      res.redirect("/signup");
-    } else next();
+      return res.redirect("/signup");
+    }
+    return next();
   });
 };
 
@@ -22,13 +23,10 @@ sessionController.isLoggedIn = (req, res, next) => {
  * startSession - create and save a new Session into the database.
  */
 sessionController.startSession = (req, res, next) => {
-  //write code here
   Session.create({ cookieId: res.locals.ssidVal }, (err, result) => {
-    if (err) res.render("./../client/signup", { error: null });
-    else {
-      console.log("started session: ");
-      return next();
-    }
+    if (err) return next({ error: null });
+    console.log('started session: ');
+    return next();
   });
 };
 

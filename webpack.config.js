@@ -10,6 +10,7 @@ module.exports = {
   devServer: {
     proxy: {
       "/login": "http://localhost:3000",
+      "/signup": "http://localhost:3000",
     },
     publicPath: 'http://localhost:8080/build/',
   },

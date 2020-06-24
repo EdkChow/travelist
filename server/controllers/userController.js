@@ -33,6 +33,7 @@ userController.createUser = (req, res, next) => {
     },
     (err, result) => {
       if (err) return next({ err: null });
+      console.log('CREATED USER*****');
       return next();
     },
   );

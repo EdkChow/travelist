@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+
+const { Schema } = mongoose;
 
 /**
 * Check out the `createdAt` field below. This is set up to use Mongo's automatic document

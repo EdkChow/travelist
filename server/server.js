@@ -2,6 +2,8 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const userController = require('./controllers/userController');
+const cookieController = require('./controllers/cookieController');
+const sessionController = require('./controllers/sessionController');
 
 const app = express();
 
@@ -11,15 +13,16 @@ const url = 'mongodb+srv://edkchow:hkHCOaA3hGgj0A5Y@cluster0-1bozk.mongodb.net/t
 
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
 
-app.post('/signup', userController.createUser, (req, res) => {
+app.post('/signup', userController.createUser, cookieController.setSSIDCookie, sessionController.startSession, (req, res) => {
+  console.log(req.body.username, req.body.password);
+  res.setHeader('Content-Type', 'application/json');
+  res.status(200).json({ signup: true });
+});
+
+app.post('/login', userController.verifyUser, cookieController.setSSIDCookie, sessionController.startSession, (req, res) => {
   console.log(req.body.username, req.body.password);
   res.setHeader('Content-Type', 'application/json');
   res.status(200).json({ verify: true });
-});
-
-app.post('/login', userController.verifyUser, (req, res) => {
-  console.log(req.body.username, req.body.password);
-  res.status(200).json({ signup: true });
 });
 
 if (process.env.NODE_ENV === 'production') {
