@@ -13,7 +13,7 @@ app.use(cookieParser());
 
 const url = 'mongodb+srv://edkchow:hkHCOaA3hGgj0A5Y@cluster0-1bozk.mongodb.net/travelist?retryWrites=true&w=majority';
 
-mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
 
 app.post('/signup', userController.createUser, cookieController.setSSIDCookie, sessionController.startSession, (req, res) => {
   console.log(req.body.username, req.body.password);
@@ -22,18 +22,32 @@ app.post('/signup', userController.createUser, cookieController.setSSIDCookie, s
   res.redirect('/destinations');
 });
 
-app.post('/login', userController.verifyUser, cookieController.setSSIDCookie, sessionController.startSession, (req, res) => {
+app.post('/login', userController.verifyUser, userController.getCountries, (req, res) => {
   console.log(req.body.username, req.body.password);
   res.locals.username = req.body.username;
   // console.log('res.locals.username: ', res.locals.username);
   res.setHeader('Content-Type', 'application/json');
   // res.status(200).json({ verify: true });
-  res.redirect('/destinations');
+  // res.redirect('/destinations');
+  res.status(200).json({ signup: true, verify: true, countries: res.locals.countries });
 });
+
+// app.post('/login', userController.verifyUser, cookieController.setSSIDCookie, sessionController.startSession, (req, res) => {
+//   console.log(req.body.username, req.body.password);
+//   res.locals.username = req.body.username;
+//   // console.log('res.locals.username: ', res.locals.username);
+//   res.setHeader('Content-Type', 'application/json');
+//   // res.status(200).json({ verify: true });
+//   res.redirect('/destinations');
+// });
 
 app.get('/destinations', sessionController.isLoggedIn, userController.getCountries, (req, res) => {
   // console.log('usrname: ', req.locals.username);
   res.status(200).json({ signup: true, verify: true, countries: res.locals.countries });
+});
+
+app.put('/add', userController.add, (req, res) => {
+  res.send('fdjklsf');
 });
 
 if (process.env.NODE_ENV === 'production') {

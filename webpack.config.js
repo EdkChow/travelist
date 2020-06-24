@@ -12,7 +12,7 @@ module.exports = {
       '/login': 'http://localhost:3000',
       '/signup': 'http://localhost:3000',
       '/destinations': 'http://localhost:3000',
-      '/countries': 'http://localhost:3000',
+      '/add': 'http://localhost:3000',
     },
     publicPath: 'http://localhost:8080/build/',
   },

@@ -1,21 +1,27 @@
 import React, { useState } from 'react';
 
 function List({ verify, signup, list }) {
-  // const [destination, setDestination] = useState('');
+  const [destination, setDestination] = useState('');
   // const [submit, setSubmit] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch('/getCountries')
+    e.target.reset();
+    const requestOptions = {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ destination }),
+    };
+    fetch('/add', requestOptions)
       .then((response) => response.json())
       .then((res) => {
-        console.log(res.signup);
-        if (res.signup) setSignup(true);
+        console.log(res);
+        // if (res.signup) setSignup(true);
       });
   };
 
   const handleChange = (e) => {
-    // setDestination(e.target.value);
+    setDestination(e.target.value);
   };
 
   if (verify || signup) {

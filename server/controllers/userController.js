@@ -8,7 +8,8 @@ const userController = {};
  * before moving on to next middleware.
  */
 userController.getCountries = (req, res, next) => {
-  User.findOne({ username: 'ed' }, (err, data) => {
+  // console.log('res locals username: **** ', res.locals.username);
+  User.findOne({ username: req.body.username }, (err, data) => {
     // console.log('********* ', res.body.username);
     // if a database error occurs, call next with the error message passed in
     // for the express global error handler to catch
@@ -23,6 +24,20 @@ userController.getCountries = (req, res, next) => {
     // // res.locals.users = users;
     return next();
   });
+};
+
+userController.add = (req, res, next) => {
+  console.log('****sending dest****', req.body.destination);
+  User.findOneAndUpdate(
+    { username: req.body.username },
+    { $push: { countries: req.body.destination } },
+    { new: true },
+    (err, doc) => {
+      if (err) return next({ Error: null });
+      console.log('added destination:  ', doc);
+    },
+  );
+  return next();
 };
 
 /**
@@ -61,6 +76,7 @@ userController.verifyUser = (req, res, next) => {
       return next({ error: null });
     }
     console.log('verified user: ', req.body.username);
+    res.locals.username = req.body.username;
     return next();
   });
 };

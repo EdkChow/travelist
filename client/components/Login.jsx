@@ -18,6 +18,7 @@ function Login() {
 
   const handleLogin = (e) => {
     e.preventDefault();
+    e.target.reset();
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -27,8 +28,10 @@ function Login() {
       .then((response) => response.json())
       .then((res) => {
         console.log(res.verify);
-        if (res.verify) setVerify(true);
-        setList(res);
+        if (res.verify) {
+          setVerify(true);
+          setList([res.countries]);
+        }
       });
   };
 
@@ -43,7 +46,10 @@ function Login() {
       .then((response) => response.json())
       .then((res) => {
         console.log(res.signup);
-        if (res.signup) setSignup(true);
+        if (res.signup) {
+          setSignup(true);
+          setList([res.countries]);
+        }
       });
   };
 
