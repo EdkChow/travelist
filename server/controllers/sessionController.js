@@ -7,6 +7,7 @@ const sessionController = {};
  * verify whether or not the session is still valid.
  */
 sessionController.isLoggedIn = (req, res, next) => {
+  // console.log('isloggedin')
   Session.findOne({ cookieId: req.cookies.ssid }, (err, result) => {
     console.log('inside isLoggedin: ', req.cookies.ssid);
     console.log('result: ', result.cookieId);
@@ -24,6 +25,7 @@ sessionController.isLoggedIn = (req, res, next) => {
  */
 sessionController.startSession = (req, res, next) => {
   Session.create({ cookieId: res.locals.ssidVal }, (err, result) => {
+    // console.log(res.locals.ssidVal)
     if (err) return next({ error: null });
     console.log('started session: ', res.locals.username);
     return next();

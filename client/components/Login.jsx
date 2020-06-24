@@ -27,14 +27,15 @@ function Login() {
     fetch('/login', requestOptions)
       .then((response) => response.json())
       .then((res) => {
-        console.log(res.verify);
+        // console.log(res.verify);
         if (res.verify) {
           setVerify(true);
           console.log('res.countries: ***', res.countries);
           setList([...res.countries]);
+          console.log('list: ***', list);
         }
       });
-      // console.log('list: ***', list);
+      
   };
 
   const handleSignup = (e) => {
@@ -48,14 +49,15 @@ function Login() {
     fetch('/signup', requestOptions)
       .then((response) => response.json())
       .then((res) => {
-        console.log(res.signup);
+        // console.log(res.signup);
         if (res.signup) {
           setSignup(true);
           setList([res.countries]);
         }
+        console.log('****** list state" ', list);
       });
   };
-
+  // console.log('****** list state" ', list);
   return (
     <div>
       <h3>Sign up</h3>

@@ -3,11 +3,11 @@ import { render } from 'react-dom';
 
 function List({ verify, signup, list }) {
   const [destination, setDestination] = useState('');
-  const [newList, setNewList] = useState([...list]);
+  const [newList, setNewList] = useState([]);
 
-  useEffect(() => {
-    setNewList([...list]);
-  }, []);
+  // useEffect(() => {
+  //   setNewList([...list]);
+  // }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,7 +20,7 @@ function List({ verify, signup, list }) {
     fetch('/add', requestOptions)
       .then((response) => response.json())
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         // let temp = [...list];
         setNewList([...res.countries]);
       });
