@@ -1,18 +1,39 @@
 import React from 'react';
-import Login from './Login';
-import React from "react";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
-} from "react-router-dom";
+  Link,
+} from 'react-router-dom';
+import Login from './Login';
+import List from './List';
 
 function App() {
   return (
-    <div>
-      <Login />
-    </div>
+    <Router>
+      <div>
+        <ul>
+          <li>
+            <Link to="/">Login</Link>
+          </li>
+          <li>
+            <Link to="/destinations">Travel Destinations</Link>
+          </li>
+        </ul>
+
+        <Switch>
+          <Route path="/destinations">
+            <List />
+          </Route>
+          <Route path="/">
+            <Login />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
+    // <div>
+    //   <Login />
+    // </div>
   );
 }
 
