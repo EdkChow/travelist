@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import { render } from 'react-dom';
 
 function List({ verify, signup, list }) {
   const [destination, setDestination] = useState('');
-  // const [submit, setSubmit] = useState(false);
+  const [newList, setNewList] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,7 +17,8 @@ function List({ verify, signup, list }) {
       .then((response) => response.json())
       .then((res) => {
         console.log(res);
-        // if (res.signup) setSignup(true);
+        // let temp = [...list];
+        setNewList([...res.countries]);
       });
   };
 
@@ -25,6 +27,15 @@ function List({ verify, signup, list }) {
   };
 
   if (verify || signup) {
+    let totalList = [];
+    if (newList.length === 0) {
+      totalList = [...list];
+    } else {
+      totalList = [...newList];
+    }
+    const renderLi = totalList.map((ele) => <li key={ele}>{ele}</li>);
+    console.log('toal list: ****', totalList);
+    console.log('render li: ******', renderLi);
     return (
       <div>
         <form onSubmit={handleSubmit}>
@@ -33,7 +44,7 @@ function List({ verify, signup, list }) {
         </form>
         <h3>Travel Destinations</h3>
         <ul>
-          <li>{list}</li>
+          {renderLi}
         </ul>
       </div>
     );

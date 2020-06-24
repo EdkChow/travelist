@@ -30,9 +30,11 @@ function Login() {
         console.log(res.verify);
         if (res.verify) {
           setVerify(true);
-          setList([res.countries]);
+          console.log('res.countries: ***', res.countries);
+          setList([...res.countries]);
         }
       });
+      // console.log('list: ***', list);
   };
 
   const handleSignup = (e) => {

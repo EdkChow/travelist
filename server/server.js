@@ -46,8 +46,8 @@ app.get('/destinations', sessionController.isLoggedIn, userController.getCountri
   res.status(200).json({ signup: true, verify: true, countries: res.locals.countries });
 });
 
-app.put('/add', userController.add, (req, res) => {
-  res.send('fdjklsf');
+app.put('/add', userController.add, userController.getCountries, (req, res) => {
+  res.status(200).json({ countries: res.locals.countries });
 });
 
 if (process.env.NODE_ENV === 'production') {

@@ -29,7 +29,7 @@ userController.getCountries = (req, res, next) => {
 userController.add = (req, res, next) => {
   console.log('****sending dest****', req.body.destination);
   User.findOneAndUpdate(
-    { username: req.body.username },
+    { username: 'ed' },
     { $push: { countries: req.body.destination } },
     { new: true },
     (err, doc) => {
