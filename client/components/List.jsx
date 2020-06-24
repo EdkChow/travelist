@@ -1,27 +1,34 @@
 import React, { useState } from 'react';
 
-function List({ verify }) {
-  const [destination, setDestination] = useState('');
-  const [submit, setSubmit] = useState(false);
+function List({ verify, signup, list }) {
+  // const [destination, setDestination] = useState('');
+  // const [submit, setSubmit] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSubmit(true);
+    fetch('/getCountries')
+      .then((response) => response.json())
+      .then((res) => {
+        console.log(res.signup);
+        if (res.signup) setSignup(true);
+      });
   };
 
   const handleChange = (e) => {
-    setDestination(e.target.value);
+    // setDestination(e.target.value);
   };
 
-  if (submit) {
+  if (verify || signup) {
     return (
       <div>
         <form onSubmit={handleSubmit}>
-        <input type="text" autoComplete="off" placeholder="add destination" onChange={handleChange} />
-        <input type="submit" value="Add" />
-      </form>
+          <input type="text" autoComplete="off" placeholder="add destination" onChange={handleChange} />
+          <input type="submit" value="Add" />
+        </form>
         <h3>Travel Destinations</h3>
-        <li>{destination}</li>
+        <ul>
+          <li>{list}</li>
+        </ul>
       </div>
     );
   }

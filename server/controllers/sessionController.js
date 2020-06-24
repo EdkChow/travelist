@@ -13,7 +13,7 @@ sessionController.isLoggedIn = (req, res, next) => {
     if (err) return next({ error: null });
     if (!result) {
       console.log('isloggedin result is null');
-      return res.redirect("/signup");
+      return next({ error: null });
     }
     return next();
   });

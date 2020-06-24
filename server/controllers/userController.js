@@ -1,4 +1,5 @@
 const User = require('../models/userModel');
+// const Session = require('../models/sessionModel');
 
 const userController = {};
 
@@ -6,20 +7,23 @@ const userController = {};
  * getAllUsers - retrieve all users from the database and stores it into res.locals
  * before moving on to next middleware.
  */
-// userController.getAllUsers = (req, res, next) => {
-//   User.find({}, (err, users) => {
-//     // if a database error occurs, call next with the error message passed in
-//     // for the express global error handler to catch
-//     if (err)
-//       return next(
-//         "Error in userController.getAllUsers: " + JSON.stringify(err)
-//       );
-
-//     // store retrieved users into res.locals and move on to next middleware
-//     // res.locals.users = users;
-//     return next();
-//   });
-// };
+userController.getCountries = (req, res, next) => {
+  User.findOne({ username: 'ed' }, (err, data) => {
+    // console.log('********* ', res.body.username);
+    // if a database error occurs, call next with the error message passed in
+    // for the express global error handler to catch
+    console.log('********* ', data);
+    if (err) return next('Error in userController.getAllUsers: ', JSON.stringify(err));
+    // if (data.countries) {
+    res.locals.countries = Object.values(data.countries);
+    // } else {
+    //   res.locals.countries = [];
+    // }
+    // // store retrieved users into res.locals and move on to next middleware
+    // // res.locals.users = users;
+    return next();
+  });
+};
 
 /**
  * createUser - create and save a new User into the database.

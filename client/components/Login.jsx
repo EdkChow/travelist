@@ -6,7 +6,7 @@ function Login() {
   const [password, setPassword] = useState('');
   const [verify, setVerify] = useState(false);
   const [signup, setSignup] = useState(false);
-
+  const [list, setList] = useState([]);
 
   const handleUserChange = (e) => {
     setUsername(e.target.value);
@@ -28,6 +28,7 @@ function Login() {
       .then((res) => {
         console.log(res.verify);
         if (res.verify) setVerify(true);
+        setList(res);
       });
   };
 
@@ -60,9 +61,9 @@ function Login() {
         <input type="password" name="password" placeholder="password" onChange={handlePassChange} />
         <input type="submit" value="submit" />
       </form>
-      <ul>
-        {/* <List verify={verify} submit={submit} destination={destination} /> */}
-      </ul>
+      <div>
+        <List verify={verify} signup={signup} list={list} />
+      </div>
     </div>
   );
 }
