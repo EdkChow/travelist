@@ -9,7 +9,7 @@ const userController = {};
  */
 userController.getCountries = (req, res, next) => {
   // console.log('res locals username: **** ', res.locals.username);
-  User.findOne({ username: req.body.username }, (err, data) => {
+  User.findOne({ _id: req.cookies.ssid }, (err, data) => {
     // console.log('********* ', res.body.username);
     // if a database error occurs, call next with the error message passed in
     // for the express global error handler to catch
@@ -28,8 +28,8 @@ userController.getCountries = (req, res, next) => {
 
 userController.add = (req, res, next) => {
   console.log('****sending dest****', req.body.destination);
-  User.findOneAndUpdate(
-    { username: 'ed' },
+  User.findByIdAndUpdate(
+    { _id: req.cookies.ssid },
     { $push: { countries: req.body.destination } },
     { new: true },
     (err, doc) => {

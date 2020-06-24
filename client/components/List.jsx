@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { render } from 'react-dom';
 
 function List({ verify, signup, list }) {
   const [destination, setDestination] = useState('');
-  const [newList, setNewList] = useState([]);
+  const [newList, setNewList] = useState([...list]);
+
+  useEffect(() => {
+    setNewList([...list]);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -33,8 +37,8 @@ function List({ verify, signup, list }) {
     } else {
       totalList = [...newList];
     }
-    const renderLi = totalList.map((ele) => <li key={ele}>{ele}</li>);
-    console.log('toal list: ****', totalList);
+    const renderLi = list.map((ele) => <li key={ele}>{ele}</li>);
+    // console.log('toal list: ****', totalList);
     console.log('render li: ******', renderLi);
     return (
       <div>

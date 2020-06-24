@@ -22,14 +22,14 @@ app.post('/signup', userController.createUser, cookieController.setSSIDCookie, s
   res.redirect('/destinations');
 });
 
-app.post('/login', userController.verifyUser, userController.getCountries, (req, res) => {
+app.post('/login', userController.verifyUser, cookieController.setSSIDCookie, sessionController.startSession, (req, res) => {
   console.log(req.body.username, req.body.password);
   res.locals.username = req.body.username;
   // console.log('res.locals.username: ', res.locals.username);
   res.setHeader('Content-Type', 'application/json');
   // res.status(200).json({ verify: true });
-  // res.redirect('/destinations');
-  res.status(200).json({ signup: true, verify: true, countries: res.locals.countries });
+  res.redirect('/destinations');
+  // res.status(200).json({ signup: true, verify: true, countries: res.locals.countries });
 });
 
 // app.post('/login', userController.verifyUser, cookieController.setSSIDCookie, sessionController.startSession, (req, res) => {

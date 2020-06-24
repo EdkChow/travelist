@@ -39,6 +39,7 @@ function Login() {
 
   const handleSignup = (e) => {
     e.preventDefault();
+    e.target.reset();
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
